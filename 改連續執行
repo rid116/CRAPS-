@@ -1,0 +1,48 @@
+from random import randint
+
+def game(debt,money):
+    while money>0:
+        #print('你的总资产为:', money)
+        needs_go_on = False
+        first = randint(1, 6) + randint(1, 6)
+        print('玩家摇出了%d点' % first)
+        if first == 7 or first == 11:
+            print('玩家胜!')
+            money += debt
+            return money
+        elif first == 2 or first == 3 or first == 12:
+            print('庄家胜!')
+            money -= debt
+            return money
+        else:
+            needs_go_on = True
+        while needs_go_on:
+            needs_go_on = False
+            current = randint(1, 6) + randint(1, 6)
+            print('玩家摇出了%d点' % current)
+            if current == 7:
+                print('庄家胜')
+                money -= debt
+                return money
+            elif current == first:
+                print('玩家胜')
+                money += debt
+                return money
+            else:
+                needs_go_on = True
+
+money=1000
+
+while True:
+    print('資金:',money)
+    debt = int(input('请下注: ')) 
+    if debt> money:
+        print('not have enough money')
+        break
+
+    else:
+        money=game(debt,money)
+    if money<=0:
+        print('game over')
+        break
+    print(money)
